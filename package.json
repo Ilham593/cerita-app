@@ -6,7 +6,8 @@
   "scripts": {
     "build": "vite build && workbox generateSW workbox-config.js",
     "dev": "vite",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
