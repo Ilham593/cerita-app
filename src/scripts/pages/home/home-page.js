@@ -30,13 +30,14 @@ export default class HomePage {
   showStoriesOnList(stories) {
     const storyListElement = document.querySelector('#story-list');
     storyListElement.innerHTML = stories.map((story) => `
-      <article class="story-item">
+      <a href="#/detail/${story.id}" class="story-item" style="text-decoration: none; color: inherit;">
         <img src="${story.photoUrl}" alt="Foto cerita oleh ${story.name}" class="story-image" />
         <h2>${story.name}</h2>
         <p>${story.description}</p>
         <small>Dibuat pada: ${new Date(story.createdAt).toLocaleDateString()}</small>
-      </article>
+      </a>
     `).join('');
+
   }
 
   showStoriesOnMap(stories) {

@@ -19,6 +19,7 @@ function updateNav() {
       <li><a href="#/">Beranda</a></li>
       <li><a href="#/about">About</a></li>
       <li><a href="#/add">Tambah Cerita</a></li>
+      <li><a href="#/bookmark">Cerita Tersimpan</a></li>
       <li><button id="push-btn" class="nav-button">Cek Notifikasi...</button></li>
       <li><a href="#" id="logout-link">Keluar</a></li>
     `;
@@ -52,7 +53,7 @@ function updateNav() {
       } else {
         await subscribe(token);
       }
-      updateNav(); // update ulang status tombol
+      updateNav(); 
     });
   }
 }
@@ -94,5 +95,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.updateNav();
   });
 
-  await registerServiceWorker(); // <- untuk PWA support
+  await registerServiceWorker(); 
 });
