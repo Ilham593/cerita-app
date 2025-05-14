@@ -1,7 +1,7 @@
 {
-  "id": "/#/",
-  "start_url": "/#/",
-  "scope": "/",
+  "id": "/cerita-app/#/",
+  "start_url": "/cerita-app/#/",
+  "scope": "/cerita-app/",
   "name": "Story App",
   "short_name": "Story",
   "description": "Aplikasi berbagi cerita keren dari Peserta Dbs.",
@@ -10,25 +10,25 @@
   "theme_color": "#3b82f6",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/cerita-app/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-512x512.png",
+      "src": "/cerita-app/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "screenshots": [
     {
-      "src": "/screenshots/storyapp_001.png",
+      "src": "/cerita-app/screenshots/storyapp_001.png",
       "sizes": "1080x2280",
       "type": "image/png",
       "form_factor": "narrow"
     },
     {
-      "src": "/screenshots/storyapp_002.png",
+      "src": "/cerita-app/screenshots/storyapp_002.png",
       "sizes": "1080x2280",
       "type": "image/png",
       "form_factor": "narrow"
@@ -39,10 +39,10 @@
       "name": "Tambah Cerita",
       "short_name": "Tambah",
       "description": "Langsung buka halaman tambah cerita",
-      "url": "/#/add",
+      "url": "/cerita-app/#/add",
       "icons": [
         {
-          "src": "/icons/add-x512.png",
+          "src": "/cerita-app/icons/add-x512.png",
           "type": "image/png",
           "sizes": "512x512"
         }
@@ -52,10 +52,10 @@
       "name": "Beranda",
       "short_name": "Home",
       "description": "Langsung ke halaman utama",
-      "url": "/#/",
+      "url": "/cerita-app/#/",
       "icons": [
         {
-          "src": "/icons/home-x512.png",
+          "src": "/cerita-app/icons/home-x512.png",
           "type": "image/png",
           "sizes": "512x512"
         }
