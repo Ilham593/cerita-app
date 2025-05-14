@@ -95,5 +95,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.updateNav();
   });
 
-  await registerServiceWorker(); 
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js', { type: 'module' })
+
+        .then(() => console.log('Service worker berhasil terdaftar'))
+        .catch((err) => console.error('Gagal registrasi service worker:', err));
+    });
+  }
+
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    const installBtn = document.createElement('button');
+    installBtn.textContent = 'Install Aplikasi';
+    installBtn.id = 'install-btn';
+    installBtn.style.position = 'fixed';
+    installBtn.style.bottom = '1rem';
+    installBtn.style.right = '1rem';
+    installBtn.style.zIndex = '999';
+    installBtn.style.padding = '1rem';
+    installBtn.style.backgroundColor = '#ff9800';
+    installBtn.style.color = '#fff';
+    installBtn.style.border = 'none';
+    installBtn.style.borderRadius = '8px';
+    installBtn.style.cursor = 'pointer';
+
+    document.body.appendChild(installBtn);
+
+    installBtn.addEventListener('click', async () => {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response to the install prompt: ${outcome}`);
+      deferredPrompt = null;
+      installBtn.remove();
+    });
+  });
 });
