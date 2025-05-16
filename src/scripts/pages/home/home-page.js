@@ -16,14 +16,7 @@ export default class HomePage {
   }
 
   async afterRender() {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      const storyList = document.querySelector('#story-list');
-      storyList.innerHTML = `<p>Anda belum login. Silakan <a href="#/login">login</a> terlebih dahulu.</p>`;
-      return;
-    }
-
-    this.#presenter = new HomePresenter({ view: this, token });
+    this.#presenter = new HomePresenter({ view: this });
     await this.#presenter.showStories();
   }
 
@@ -37,7 +30,6 @@ export default class HomePage {
         <small>Dibuat pada: ${new Date(story.createdAt).toLocaleDateString()}</small>
       </a>
     `).join('');
-
   }
 
   showStoriesOnMap(stories) {
@@ -61,7 +53,6 @@ export default class HomePage {
     });
   }
 
-
   showEmptyState() {
     const storyListElement = document.querySelector('#story-list');
     storyListElement.innerHTML = '<p>Tidak ada cerita ditemukan.</p>';
@@ -70,5 +61,10 @@ export default class HomePage {
   showErrorState() {
     const storyListElement = document.querySelector('#story-list');
     storyListElement.innerHTML = '<p>Gagal memuat cerita. Silakan coba lagi nanti.</p>';
+  }
+
+  showLoginRequired() {
+    const storyList = document.querySelector('#story-list');
+    storyList.innerHTML = `<p>Anda belum login. Silakan <a href="#/login">login</a> terlebih dahulu.</p>`;
   }
 }

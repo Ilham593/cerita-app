@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+  base: '/cerita-app/',
   root: resolve(__dirname, 'src'),
   publicDir: resolve(__dirname, 'public'),
   build: {
@@ -24,8 +25,8 @@ export default defineConfig({
       manifest: {
         name: 'Cerita App',
         short_name: 'Cerita',
-        start_url: '/',
-        scope: '/',
+        start_url: '/cerita-app/',
+        scope: '/cerita-app/',
         icons: [
           {
             src: 'icons/icon-192x192.png',
@@ -40,8 +41,8 @@ export default defineConfig({
         ],
         display: 'standalone',
         background_color: '#ffffff',
-        theme_color: '#ff9800'
-      }
-    })
+        theme_color: '#ff9800',
+      },
+    }),
   ],
 });

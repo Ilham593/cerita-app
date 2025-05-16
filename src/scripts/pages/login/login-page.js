@@ -34,16 +34,15 @@ export default class LoginPage {
     });
   }
 
-  onLoginSuccess(result) {
-    localStorage.setItem('authToken', result.loginResult.token);
-    document.getElementById('login-message').textContent = 'Login berhasil!';
-    setTimeout(() => {
-      window.updateNav();
-      location.hash = '#/';
-    }, 1000);
+  showSuccessMessage(message) {
+    const messageEl = document.getElementById('login-message');
+    messageEl.style.color = 'green';
+    messageEl.textContent = message;
   }
 
-  onLoginError(message) {
-    document.getElementById('login-message').textContent = 'Login gagal: ' + message;
+  showErrorMessage(message) {
+    const messageEl = document.getElementById('login-message');
+    messageEl.style.color = 'red';
+    messageEl.textContent = 'Login gagal: ' + message;
   }
 }

@@ -6,7 +6,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 if (import.meta.env.PROD) {
   precacheAndRoute(self.__WB_MANIFEST);
 } else {
-  console.warn('⚠️ Precaching dilewati (dev mode)');
+  console.warn(' Precaching dilewati (dev mode)');
 }
 
 

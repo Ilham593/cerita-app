@@ -10,9 +10,10 @@ export default class RegisterPresenter {
   async register(name, email, password) {
     try {
       await registerUser(name, email, password);
-      this.#view.onRegisterSuccess();
+      this.#view.showSuccessMessage('Registrasi berhasil! Silakan login.');
+      setTimeout(() => this.#view.redirectToLogin(), 1000);
     } catch (error) {
-      this.#view.onRegisterError(error.message);
+      this.#view.showErrorMessage(error.message);
     }
   }
 }

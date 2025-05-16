@@ -1,6 +1,5 @@
 import { loginUser } from "../data/api";
 
-
 export default class LoginPresenter {
   #view;
 
@@ -11,9 +10,16 @@ export default class LoginPresenter {
   async login(email, password) {
     try {
       const result = await loginUser(email, password);
-      this.#view.onLoginSuccess(result);
+
+      localStorage.setItem('authToken', result.loginResult.token);
+      this.#view.showSuccessMessage('Login berhasil!');
+
+      setTimeout(() => {
+        window.updateNav?.();
+        location.hash = '#/';
+      }, 1000);
     } catch (error) {
-      this.#view.onLoginError(error.message);
+      this.#view.showErrorMessage(error.message);
     }
   }
 }

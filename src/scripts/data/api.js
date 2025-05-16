@@ -77,3 +77,13 @@ export async function unsubscribePushNotification({ endpoint }, token) {
   if (!response.ok) throw new Error(result.message || 'Gagal berhenti langganan notifikasi');
   return result;
 }
+
+export async function getStoryById(token, storyId) {
+  const response = await fetch(`${CONFIG.BASE_URL}/stories/${storyId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.message || 'Gagal mengambil detail cerita.');
+  return result.story;
+}
+

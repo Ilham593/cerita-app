@@ -1,4 +1,5 @@
 import RegisterPresenter from "../../presenter/register-presenter";
+
 export default class RegisterPage {
   #presenter;
 
@@ -38,16 +39,19 @@ export default class RegisterPage {
     });
   }
 
-  onRegisterSuccess() {
-    const message = document.getElementById('register-message');
-    message.style.color = 'green';
-    message.textContent = 'Registrasi berhasil! Silakan login.';
-    location.hash = '#/login';
+  showSuccessMessage(message) {
+    const el = document.getElementById('register-message');
+    el.style.color = 'green';
+    el.textContent = message;
   }
 
-  onRegisterError(errorMessage) {
-    const message = document.getElementById('register-message');
-    message.style.color = 'red';
-    message.textContent = 'Gagal daftar: ' + errorMessage;
+  showErrorMessage(errorMessage) {
+    const el = document.getElementById('register-message');
+    el.style.color = 'red';
+    el.textContent = 'Gagal daftar: ' + errorMessage;
+  }
+
+  redirectToLogin() {
+    location.hash = '#/login';
   }
 }

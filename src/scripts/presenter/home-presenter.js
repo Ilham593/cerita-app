@@ -1,29 +1,33 @@
 import { getAllStories } from "../data/api";
 
-
 export default class HomePresenter {
-    #view;
-    #token;
+  #view;
 
-    constructor({ view, token }) {
-        this.#view = view;
-        this.#token = token;
+  constructor({ view }) {
+    this.#view = view;
+  }
+
+  async showStories() {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      this.#view.showLoginRequired();
+      return;
     }
 
-    async showStories() {
-        try {
-            const stories = await getAllStories(this.#token);
+    try {
+      const stories = await getAllStories(token);
 
-            if (!stories || !Array.isArray(stories) || stories.length === 0) {
-                this.#view.showEmptyState();
-                return;
-            }
+      if (!stories || !Array.isArray(stories) || stories.length === 0) {
+        this.#view.showEmptyState();
+        return;
+      }
 
-            this.#view.showStoriesOnList(stories);
-            this.#view.showStoriesOnMap(stories);
-        } catch (error) {
-            console.error('Gagal mengambil cerita:', error);
-            this.#view.showErrorState();
-        }
+      this.#view.showStoriesOnList(stories);
+      this.#view.showStoriesOnMap(stories);
+    } catch (error) {
+      console.error("Gagal mengambil cerita:", error);
+      this.#view.showErrorState();
     }
+  }
 }

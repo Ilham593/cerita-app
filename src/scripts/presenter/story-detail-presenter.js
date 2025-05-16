@@ -13,21 +13,18 @@ export default class StoryDetailPresenter {
 
   async init() {
     const token = localStorage.getItem('authToken');
-    try {
-      const response = await fetch(`https://story-api.dicoding.dev/v1/stories/${this.#storyId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const result = await response.json();
+    if (!token) {
+      this.#view.showError('Anda harus login terlebih dahulu.');
+      return;
+    }
 
-      if (response.ok) {
-        this.#view.showStoryDetail(result.story);
-        await this.checkSavedStatus();
-      } else {
-        this.#view.showError(result.message);
-      }
+    try {
+      const story = await this.#apiModel.getStoryById(token, this.#storyId);
+      this.#view.showStoryDetail(story);
+      await this.checkSavedStatus();
     } catch (error) {
       console.error('Gagal mengambil detail:', error);
-      this.#view.showError('Terjadi kesalahan saat mengambil data.');
+      this.#view.showError(error.message || 'Terjadi kesalahan saat mengambil data.');
     }
   }
 
@@ -41,21 +38,19 @@ export default class StoryDetailPresenter {
   }
 
   async saveStory() {
-    try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch(`https://story-api.dicoding.dev/v1/stories/${this.#storyId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const result = await response.json();
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      this.#view.showError('Anda harus login untuk menyimpan cerita.');
+      return;
+    }
 
-      if (response.ok) {
-        await this.#dbModel.putStory(result.story);
-        console.log('Cerita berhasil disimpan!');
-      } else {
-        console.error('Gagal menyimpan:', result.message);
-      }
+    try {
+      const story = await this.#apiModel.getStoryById(token, this.#storyId);
+      await this.#dbModel.putStory(story);
+      console.log('Cerita berhasil disimpan!');
     } catch (error) {
       console.error('saveStory error:', error);
+      this.#view.showError('Gagal menyimpan cerita.');
     }
   }
 
@@ -65,6 +60,7 @@ export default class StoryDetailPresenter {
       console.log('Cerita berhasil dihapus!');
     } catch (error) {
       console.error('removeStory error:', error);
+      this.#view.showError('Gagal menghapus cerita.');
     }
   }
 }
